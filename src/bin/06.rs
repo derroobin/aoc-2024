@@ -1,19 +1,15 @@
-use std::{
-    borrow::Borrow,
-    collections::{HashMap, HashSet},
-};
-
-use glam::{ivec2, IVec2, IVec3};
+use glam::IVec2;
 use itertools::Itertools;
 use nom::{
     branch::alt,
     bytes::complete::tag,
-    character::complete::{char, line_ending},
+    character::complete::line_ending,
     combinator::value,
     multi::{many1, separated_list1},
-    IResult, InputIter, Parser,
+    IResult,
 };
 use nom_locate::{position, LocatedSpan};
+use std::collections::{HashMap, HashSet};
 advent_of_code::solution!(6);
 
 type Span<'a> = LocatedSpan<&'a str>;
@@ -53,7 +49,7 @@ impl Direction {
 }
 
 fn token(input: Span) -> IResult<Span, (IVec2, Token)> {
-    let (s, pos) = position(input)?;
+    let (_, pos) = position(input)?;
 
     let (input, token) = alt((
         value(Token::Tile(), tag(".")),
@@ -80,7 +76,7 @@ fn parser(input: Span) -> IResult<Span, (HashMap<IVec2, Token>, IVec2, Direction
         .iter()
         .flatten()
         .find(|(_, token)| match token {
-            Token::Guard(x) => true,
+            Token::Guard(_) => true,
             _ => false,
         })
         .cloned()
