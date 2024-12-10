@@ -2,16 +2,14 @@ use std::collections::HashMap;
 
 advent_of_code::solution!(10);
 
-type x = u32;
-
 fn rec_search(
-    list: &Vec<Vec<x>>,
+    list: &Vec<Vec<u32>>,
     count: u32,
     y: usize,
     x: usize,
     part_two: bool,
     mut cache: &mut HashMap<(usize, usize), u32>,
-) -> x {
+) -> u32 {
     if y >= list.len() || x >= list[0].len() {
         return 0;
     }
@@ -51,7 +49,7 @@ fn rec_search(
     sum
 }
 
-pub fn run_search(list: &Vec<Vec<x>>) -> x {
+pub fn run_search(list: &Vec<Vec<u32>>) -> u32 {
     let mut part_1 = 0;
 
     for y in 0..list.len() {
@@ -60,7 +58,7 @@ pub fn run_search(list: &Vec<Vec<x>>) -> x {
                 let mut cache: HashMap<(usize, usize), u32> = HashMap::new();
                 rec_search(list, 0, y, x, false, &mut cache);
 
-                part_1 += cache.len() as x;
+                part_1 += cache.len() as u32;
             }
         }
     }
@@ -68,7 +66,7 @@ pub fn run_search(list: &Vec<Vec<x>>) -> x {
     part_1
 }
 
-pub fn run_search_part2(list: &Vec<Vec<x>>) -> x {
+pub fn run_search_part2(list: &Vec<Vec<u32>>) -> u32 {
     let mut sum = 0;
     let mut cache: HashMap<(usize, usize), u32> = HashMap::new();
 
@@ -83,8 +81,8 @@ pub fn run_search_part2(list: &Vec<Vec<x>>) -> x {
     sum
 }
 
-pub fn part_one(input: &str) -> Option<x> {
-    let list: Vec<Vec<x>> = input
+pub fn part_one(input: &str) -> Option<u32> {
+    let list: Vec<Vec<u32>> = input
         .trim()
         .lines()
         .map(|line| line.chars().map(|c| c.to_digit(10).unwrap()).collect())
@@ -95,7 +93,7 @@ pub fn part_one(input: &str) -> Option<x> {
 }
 
 pub fn part_two(input: &str) -> Option<u32> {
-    let list: Vec<Vec<x>> = input
+    let list: Vec<Vec<u32>> = input
         .trim()
         .lines()
         .map(|line| line.chars().map(|c| c.to_digit(10).unwrap()).collect())
