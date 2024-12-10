@@ -1,4 +1,4 @@
-use std::collections::{HashMap, HashSet};
+use std::collections::HashMap;
 
 advent_of_code::solution!(10);
 
@@ -43,9 +43,10 @@ fn rec_search(
     sum += rec_search(list, count + 1, y + 1, x, part_two, &mut cache);
     sum += rec_search(list, count + 1, y, x + 1, part_two, &mut cache);
 
-    if part_two {
-        cache.insert((y, x), sum);
-    }
+    // some caching nodes makes it slower?
+    //if part_two {
+    //    cache.insert((y, x), sum);
+    //}
 
     sum
 }
